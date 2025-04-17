@@ -1,0 +1,35 @@
+[systeminfo]
+ Static hostname: SRV_DMZ
+       Icon name: rack-mount server
+         Chassis: 19"
+      Machine ID: 6718df301f114bdebe5a7898308a3380
+         Boot ID: 1b7fd75ca7b24a00bcdb751616a32d90
+Operating System: Ubuntu 24.04.2 LTS
+          Kernel: Linux 6.8.0-54-generic
+    Architecture: x86-64
+ Hardware Vendor: Hewlett-Packard
+  Hardware Model: HP DL360 Gen10
+Firmware Version: 7.28
+   Firmware Date: Wed 2024-03-14
+    Firmware Age: 1y 1month 0w 0d
+[ipconfig]
+Активные сетевые интерфейсы:
+============================================================
+Interface:    enp3s0
+State:    UP
+MAC-адрес:    b4:b5:2f:bd:28:ac
+Speed:     1000
+IP-address:    192.168.11.2
+Mask:        (/24)
+============================================================
+
+[route]
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.11.1    0.0.0.0         UG    0      0        0 enp3s0
+192.168.11.0    0.0.0.0         255.255.255.0   U     0      0        0 enp3s0
+============================================================
+[firewall]
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT

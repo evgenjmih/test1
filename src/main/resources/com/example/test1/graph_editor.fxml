@@ -12,6 +12,8 @@
             <Button text="Добавить вершину" onAction="#handleAddVertex"/>
             <Button text="Удалить вершину" onAction="#handleDeleteVertex"/>
             <Button text="Добавить ребро" onAction="#handleAddEdge"/>
+            <Button text="Загрузить схему сети" onAction="#loadSheme"/>
+            <Button text="Добавить взаимодействие" onAction="#handleAddApplication"/>
         </ToolBar>
     </top>
     <center>

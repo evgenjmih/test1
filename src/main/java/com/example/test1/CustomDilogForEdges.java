@@ -14,7 +14,7 @@ public class CustomDilogForEdges extends Dialog<Map<String, Object>>{
     private final ComboBox<String> sInterfaceField = new ComboBox<>();
     private final TextField portIn = new TextField();
     private final TextField portOut = new TextField();
-    private final TextField networkProtocol =  new TextField();
+    private final ComboBox<NetworkPacket.NetworkProtocol> networkProtocol =  new ComboBox<>();
     private final TextField applicationLabel = new TextField();
     private final ComboBox<String> dInterfaceField = new ComboBox<>();
 
@@ -59,6 +59,8 @@ public class CustomDilogForEdges extends Dialog<Map<String, Object>>{
         grid.add(portOut, 1, 3);
 
         grid.add(new Label("Протокол"), 0, 4);
+        networkProtocol.getItems().setAll(NetworkPacket.NetworkProtocol.values());
+        networkProtocol.setValue(NetworkPacket.NetworkProtocol.UDP);
         grid.add(networkProtocol, 1, 4);
 
         grid.add(new Label("Название подключения"), 0, 5);
@@ -78,7 +80,7 @@ public class CustomDilogForEdges extends Dialog<Map<String, Object>>{
                 result.put("sPort",  Integer.parseInt(portIn.getText()));
                 System.out.println(portIn.getText());
                 result.put("dPort", Integer.parseInt(portOut.getText()));
-                result.put("networkProtocol", Integer.parseInt(networkProtocol.getText()));
+                result.put("networkProtocol", networkProtocol.getValue());
                 result.put("applicationLabel", applicationLabel.getText());
 
 

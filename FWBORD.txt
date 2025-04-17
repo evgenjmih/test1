@@ -1,0 +1,80 @@
+[systeminfo]
+ Static hostname: FW_BORDER
+       Icon name: rack-mount server
+         Chassis: 19"
+      Machine ID: 6718df301f114bdebe5a7898308a3101
+         Boot ID: 1b7fd75ca7b24a00bcdb751616a32cab
+Operating System: Ubuntu 24.04.2 LTS
+          Kernel: Linux 6.8.0-54-generic
+    Architecture: x86-64
+ Hardware Vendor: Hewlett-Packard
+  Hardware Model: DL160 Gen10
+Firmware Version: 7.09
+   Firmware Date: Wed 2023-04-02
+    Firmware Age: 2y 0month 1w 5d
+[ipconfig]
+Активные сетевые интерфейсы:
+============================================================
+Interface:    enp3s0
+State:    UP
+MAC-адрес:    b4:b5:2f:bd:28:5c
+Speed:     1000
+IP-address:    202.132.16.4
+Mask:        (/28)
+============================================================
+Interface:    enp3s1
+State:    UP
+MAC-адрес:    b4:b5:2f:cb:f8:22
+Speed:     1000
+IP-address:    192.168.11.1
+Mask:        (/24)
+============================================================
+Interface:    enp3s2
+State:    UP
+MAC-адрес:    b4:b5:2f:fe:10:2e
+Speed:     1000
+IP-address:    192.168.254.1
+Mask:        (/30)
+============================================================
+[route]
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         202.132.16.4    0.0.0.0         UG    0      0        0 enp3s0
+202.132.16.0    0.0.0.0         255.255.255.240 U     0      0        0 enp3s0
+192.168.11.0    0.0.0.0         255.255.255.0   U     0      0        0 enp3s1
+192.168.254.0   0.0.0.0         255.255.255.252 U     0      0        0 enp3s2
+192.168.1.0     192.168.254.2   255.255.255.0   UG    0      0        0 enp3s2
+192.168.9.0     192.168.254.2   255.255.255.0   UG    0      0        0 enp3s2
+192.168.10.0    192.168.254.2   255.255.255.0   UG    0      0        0 enp3s2
+============================================================
+[firewall]
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.11.0/24 -p udp --dport 123 -j ACCEPT  # NTP
+iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.11.0/24 -p udp --dport 53 -j ACCEPT   # DNS
+iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.11.0/24 -p tcp --dport 25 -j ACCEPT   # SMTP
+iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.11.0/24 -p tcp --dport 110 -j ACCEPT  # POP3
+iptables -A FORWARD -s 192.168.1.0/24 -d 192.168.11.0/24 -p tcp --dport 143 -j ACCEPT  # IMAP
+iptables -A FORWARD -s 192.168.1.0/24 -p tcp --dport 80 -j ACCEPT   # HTTP
+iptables -A FORWARD -s 192.168.1.0/24 -p tcp --dport 443 -j ACCEPT  # HTTPS
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p udp --dport 123 -j ACCEPT  # NTP
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p udp --dport 53 -j ACCEPT   # DNS
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 25 -j ACCEPT   # SMTP
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 110 -j ACCEPT  # POP3
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 143 -j ACCEPT  # IMAP
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 80 -j ACCEPT    # HTTP
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 443 -j ACCEPT  # HTTPS
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 22 -j ACCEPT   # SSH
+iptables -A FORWARD -s 192.168.9.0/24 -d 192.168.11.0/24 -p tcp --dport 3389 -j ACCEPT # RDP
+iptables -A FORWARD -s 192.168.9.0/24 -p tcp --dport 80 -j ACCEPT   # HTTP
+iptables -A FORWARD -s 192.168.9.0/24 -p tcp --dport 443 -j ACCEPT  # HTTPS
+iptables -A FORWARD -s 192.168.10.0/24 -d 192.168.11.0/24 -p udp --dport 123 -j ACCEPT  # NTP
+iptables -A FORWARD -s 192.168.10.0/24 -d 192.168.11.0/24 -p udp --dport 53 -j ACCEPT   # DNS
+iptables -A INPUT -s 192.168.9.0/24 -p tcp --dport 22 -j ACCEPT   # SSH
+iptables -A INPUT -s 192.168.9.0/24 -p tcp --dport 443 -j ACCEPT  # HTTPS
+iptables -A OUTPUT -d 192.168.11.0/24 -p udp --dport 123 -j ACCEPT  # NTP
+iptables -A OUTPUT -d 192.168.11.0/24 -p udp --dport 53 -j ACCEPT   # DNS
+iptables -A OUTPUT -d 192.168.11.0/24 -p tcp --dport 25 -j ACCEPT   # SMTP
